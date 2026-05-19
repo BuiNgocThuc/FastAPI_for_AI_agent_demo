@@ -6,7 +6,8 @@ class Settings(BaseSettings):
     PROJECT_NAME: str = Field(default="Lecton AI Core Engine")
     ENVIRONMENT: str = Field(default="development")
     DEBUG: bool = Field(default=True)
-    
+
+    VECTOR_DB_PROVIDER: str = Field(default="pgvector")
     
     DB_USER: str = Field(default="postgres")
     DB_PASSWORD: str = Field(default="Admin@123")
@@ -16,7 +17,6 @@ class Settings(BaseSettings):
     
     @property
     def DATABASE_URL(self) -> str:
-        # Cơ chế ma thuật: Tự động đổi Admin@123 thành Admin%40123 ngầm trên RAM
         safe_password = urllib.parse.quote_plus(self.DB_PASSWORD)
         
         return (
